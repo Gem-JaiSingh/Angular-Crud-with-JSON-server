@@ -1,0 +1,208 @@
+<nav class="navbar navbar-light bg-primary">
+<div class="container-fluid">
+    <h1>Angular CRUD</h1>
+    <div class="d-flex">
+        <button (click)="clickaddemployee()" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            ADD Employee
+        </button>
+    </div>
+</div>
+</nav>
+
+
+<table class="table mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Employee ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email ID</th>
+        <th scope="col">Mobile Number</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of employeeData">
+       
+        <td>{{data.id}}</td>
+        <td>{{data.firstname}}</td>
+        <td>{{data.lastname}}</td>
+        <td>{{data.mobile}}</td>
+        <td>{{data.email}}</td>
+        <td>{{data.salary}}</td>
+        <td>
+            <button (click)="onedit(data)" type="button" data-bs-target="#exampleModal" data-bs-toggle="modal" class="btn btn-info">Edit</button>
+            <button (click)="deleteEmployee(data)" class="btn btn-success mx-3">Delete</button>
+        </td>
+
+      </tr>
+    \
+    </tbody>
+  </table>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Employee Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="signupForm">
+               
+                <div class="form-group mb-3">
+                  <label for="fullName" class="required-field">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control mt-3"
+                    id="fullName"
+                    aria-describedby="namehelp"
+                    placeholder="Enter your full name"
+                    formControlName="fullName"
+                  />
+                  <div
+                    *ngIf="
+                      signupForm.controls['fullName'].invalid &&
+                      (signupForm.controls['fullName'].dirty ||
+                        signupForm.controls['fullName'].touched)
+                    "
+                    class="error-msg"
+                  >
+                    <div
+                      *ngIf="signupForm.controls['fullName'].errors?.['required']"
+                    >
+                      Firstname is requird
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="lastname" class="required-field">Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control mt-3"
+                      id="lastname"
+                      aria-describedby="namehelp"
+                      placeholder="Enter your full name"
+                      formControlName="lastName"
+                    />
+                    <div
+                      *ngIf="
+                        signupForm.controls['lastName'].invalid &&
+                        (signupForm.controls['lastName'].dirty ||
+                          signupForm.controls['lastName'].touched)
+                      "
+                      class="error-msg"
+                    >
+                      <div
+                        *ngIf="signupForm.controls['lastName'].errors?.['required']"
+                      >
+                        Lastname is requird
+                      </div>
+                    </div>
+                  </div>
+                <div class="form-group mb-3">
+                  <label for="mobileNumber"class="required-field">Mobile Number</label>
+                  <input
+                    type="text"
+                    class="form-control mt-3"
+                    (keypress)="isNumberKey($event)"
+                    id="mobileNumber"
+                    aria-describedby="mobileHelp"
+                    placeholder="Enter mobile number"
+                    formControlName="mobileNumber"
+                    maxlength="10"
+                  />
+                  <div
+                    *ngIf="
+                      signupForm.controls['mobileNumber'].invalid &&
+                      (signupForm.controls['mobileNumber'].dirty ||
+                        signupForm.controls['mobileNumber'].touched)
+                    "
+                    class="error-msg"
+                  >
+                    <div
+                      *ngIf="signupForm.controls['mobileNumber'].errors?.['required']  "
+                    >
+                      Mobile number is requird
+                    </div>
+                    <div
+                      *ngIf="
+                        signupForm.controls['mobileNumber'].dirty &&
+                        signupForm.controls['mobileNumber'].value != ''
+                      "
+                    >
+                      Mobile number must start with 6,7,8,9
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="emailAddress" class="required-field">Email address</label>
+                  <input
+                    type="email"
+                    class="form-control mt-3"
+                    id="emailAddress"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email"
+                    formControlName="emailAddress"
+                  />
+                  <div
+                    *ngIf="
+                      signupForm.controls['emailAddress'].invalid &&
+                      (signupForm.controls['emailAddress'].dirty ||
+                        signupForm.controls['emailAddress'].touched)
+                    "
+                    class="error-msg"
+                  >
+                    <div
+                      *ngIf="signupForm.controls['emailAddress'].errors?.['required'] "
+                      
+                    >
+                      Email address is requird
+                    </div>
+                    <div
+                      *ngIf="signupForm.controls['emailAddress'].errors?.['pattern']"
+                    >
+                      Email address is invalid
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="password" class="required-field">Salary</label>
+                  <input
+                    type="text"
+                    class="form-control mt-3"
+                    id="salary"
+                    (keypress)="isNumberKey($event)"
+                    placeholder="Enter your Salary"
+                    formControlName="salary"
+                  />
+                  <div
+                    *ngIf="
+                      signupForm.controls['salary'].invalid &&
+                      (signupForm.controls['salary'].dirty ||
+                        signupForm.controls['salary'].touched)
+                    "
+                    class="error-msg"
+                  >
+                    <div
+                      *ngIf="signupForm.controls['salary'].errors?.['required']"
+                    >
+                      Salary is requird
+                    </div>
+                   
+                  </div>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" *ngIf="showadd" (click)="postEmployeedetail()" class="btn btn-primary">Add</button>
+          <button type="button" *ngIf="showupdate" (click)="updateemployeedata()" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": 5,
+      "firstname": "Jai",
+      "lastname": "singh",
+      "mobile": "9728374837",
+      "email": "jai@gmail.com",
+      "salary": "40000"
+    },
+    {
+      "id": 6,
+      "firstname": "navya",
+      "lastname": "singh",
+      "mobile": "8736472674",
+      "email": "navya@gmail.com",
+      "salary": "50000"
+    },
+    {
+      "id": 7,
+      "firstname": "xyz",
+      "lastname": "zys",
+      "mobile": "8327647236",
+      "email": "xyz@gmail.com",
+      "salary": "100000"
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}
