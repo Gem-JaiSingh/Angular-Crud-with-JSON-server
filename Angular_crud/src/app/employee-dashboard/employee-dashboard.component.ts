@@ -71,6 +71,8 @@ export class EmployeeDashboardComponent implements OnInit {
   }
 
   postEmployeedetail(){
+    console.log(this.signupForm.status);
+    if(this.signupForm.status == 'VALID'){
     this.employeemodelobj.firstname = this.signupForm.value.fullName;
     this.employeemodelobj.lastname = this.signupForm.value.lastName;
     this.employeemodelobj.mobile = this.signupForm.value.mobileNumber;
@@ -87,8 +89,13 @@ export class EmployeeDashboardComponent implements OnInit {
       this.getalldata();
     },
     err=>{
+      
       alert("Something went wrong")
     })
+  }
+  else{
+    this.signupForm.markAllAsTouched();
+  }
   }
   getalldata(){
     this.api.getEmployee()
